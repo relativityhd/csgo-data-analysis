@@ -12,18 +12,32 @@ Eine gute Anlaufstelle dazu ist FACEIT. FACEIT ist eine Platform auf der Spieler
 
 ## Definition eines guten Spielers
 
-In der Praxis erweist es sich sowohl in privaten Freundeskreisen als auch in der professionellen Szene als schwierig die Kompetenz und Leistungsstärke eines Spielers mit anderen zu Vergleichen. Aufgrund der Komplexität des Spiels entwickelten sich über die Jahre eine Reihe an verschiedenen Spielweisen und Rollen innerhalb eines Teams. Weiterhin spielen auch Out-of-Game Eigenschaften wie Kommunikation im Team eine wichtige Rolle. Es gibt somit keine einheitliche Metrik zur Bewertung von Spielern. Daher wird in dieser Arbeit der Erfolg eines Spielers gemessen, also seine Siegrate.
+In der Praxis erweist es sich sowohl in privaten Freundeskreisen als auch in der professionellen Szene als schwierig die Kompetenz und Leistungsstärke eines Spielers mit anderen zu Vergleichen. Aufgrund der Komplexität des Spiels entwickelten sich über die Jahre eine Reihe an verschiedenen Spielweisen und Rollen innerhalb eines Teams. Weiterhin spielen auch Out-of-Game Eigenschaften wie Kommunikation im Team eine wichtige Rolle. Es gibt somit keine einheitliche Metrik zur Bewertung von Spielern. Da diese Arbeit lediglich rudimentäre Statistiken zu den Spielern nutzt ist es nicht möglich die eben beschriebenen wichtigen Attribute eines guten Spielers zu erfassen.
 
 ## Projektplan
 
-Die Siegrate eines Spielers soll nicht über die reale Anzahl an gewonnenen Spielen erstellt werden sondern über die Statistiken seiner Spiele. Somit bezieht sich die Siegrate auf die Gewinn-Wahrscheinlichkeit eines Spielers basierend auf seinen Statistiken. Dies ermöglicht einen direkten Vergleich zwischen professionellen Spielern und bisher unprofessionellen.
+Das Projekt ist über folgende 5 Notebooks aufgeteilt:
 
-Das soll wie folgt umgesetzt werden:
+1. **Data Aquisition**: Hier werden über die FACEIT-API Spieler-Statisiken heruntergeladen und zu einem einheitlichen Datensatz zusammengefasst
+2. **Data Cleaning**: Hier wird der im ersten Schritt erstellte Datensatz genauer analysiert und basierend aus diesen Erkenntnissen gesäubert
+3. **Classification mit SciKit-Learn**: Hier wird der Datensatz genutzt um verschiedene von SciKit-Learn vorimplementierte Modelle zu trainieren
+4. **Classification mit PyTorch**: Hier wird ein neuronales Netz mit dem Datensatz trainiert, sowie die Modelle aus dem dritten Schritt mit diesem Verglichen
+5. **Anwendung**: Hier wird schlussendlich das beste Modell auf den Datensatz angewandt um mögliche professionelle Spieler zu finden
 
-1. Eine Kennlinie basierend auf den Spielen von bereits professionellen Spielern soll gekennzeichnet werden. Diese soll aufzeigen auf welchem Niveau sich ein professioneller Spieler mindestens befinden sollte.
-2. Die Spielerdatenbank von FACEIT soll dazu genutzt werden Spieler nahe oder sogar über dieser Kennlinie zu finden.
+Es wird versucht anhand einer Grundwahrheit - einer Liste an bereites professionellen Spielern - eine Kennlinie zwischen eben diesen professionellen Spielern und dem Rest zu zeichnen. Basierend auf dieser Kennlinie sollen darauf potentielle professionelle Spieler erkannt werden.
 
-Zur Erstellung der Kennlinie werden FACEIT Spiele von professionellen Spielern ausgewertet und ein Modell trainiert welches die Siegrate eines Spielers Vorhersagen soll. Diese Siegrate stellt den Erfolg eines Spielers dar, basierend auf seinen Statistiken, somit also den (positiven) Einfluss der Spielern auf das Spiel.
-Darauf wird dieses Modell genutzt um den Einfluss von unprofessionellen Spielern zu bewerten.
+## Environment Setup
 
-*Benötigte Datensätze:* Zum einen muss ein Datensatz angefertigt werden, welcher die Spiele von professionellen Spielern abbildet. Des weiteren muss zweiter Datensatz zur Anwendung des Modells angefertigt werden, bei welchem lediglich unprofessionelle Spieler berücksichtig werden.
+Um das Python-Environment aufzusetzen wird empfohlen [Poetry](https://python-poetry.org/) zu benutzen:
+
+```sh
+poetry install
+```
+
+Alternativ kann auch aus der `requirements.txt` ein Environment generiert werden. **Bitte das System-Environment beachten, mit welcher die `requirements.txt` erstellt wurde:**
+
+- Python==3.9.12
+- WSL2 Ubuntu
+- CUDA disabled
+
+Um CUDA zu aktivieren muss PyTorch entsprechend mit `cudatoolkit` installiert werden.
